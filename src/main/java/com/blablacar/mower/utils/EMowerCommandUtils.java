@@ -6,11 +6,11 @@ import com.blablacar.mower.enumeration.EMowerCommand;
 import java.util.List;
 import java.util.stream.Stream;
 
-public class EMowerCommandTestUtils {
+public class EMowerCommandUtils {
 
   public static List<EMowerCommand> convertStringToListCommand(String commands) {
     return Stream.of(commands.split(""))
-        .map(EMowerCommandTestUtils::convertStringToCommand)
+        .map(EMowerCommandUtils::convertStringToCommand)
         .collect(toList());
   }
 

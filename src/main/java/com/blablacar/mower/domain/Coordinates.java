@@ -14,4 +14,9 @@ public class Coordinates {
   private final int horizontal;
   private final int vertical;
 
+  public Coordinates(String horizontal, String vertical) {
+    this.horizontal = Integer.parseInt(horizontal);
+    this.vertical = Integer.parseInt(vertical);
+  }
+
 }

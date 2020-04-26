@@ -2,7 +2,7 @@ package com.blablacar.mower.utils;
 
 import com.blablacar.mower.enumeration.EOrientation;
 
-public class OrientationTestUtils {
+public class OrientationUtils {
 
   public static EOrientation convertCharToOrientation(String orientation) {
     switch (orientation) {

@@ -5,10 +5,12 @@ import com.blablacar.mower.enumeration.EMowerCommand;
 import java.util.List;
 import java.util.concurrent.Callable;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @AllArgsConstructor
+@Getter
 public class MowerCommandsProcessor implements Callable<Mower> {
 
   private final Mower mower;
