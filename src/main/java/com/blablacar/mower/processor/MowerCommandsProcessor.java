@@ -30,7 +30,7 @@ public class MowerCommandsProcessor implements Callable<Mower> {
           mower.forward();
           break;
         default:
-          throw new IllegalArgumentException();
+          throw new IllegalArgumentException("Command not supported: " + command);
       }
     }
     log.debug("The final position of Mower {} : {} {} {}",

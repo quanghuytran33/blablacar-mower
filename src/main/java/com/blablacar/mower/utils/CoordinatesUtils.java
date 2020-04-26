@@ -28,7 +28,7 @@ public class CoordinatesUtils {
             previousCoordinates.getVertical());
       default:
         throw new IllegalArgumentException(
-            "Orientation " + orientation + " not available in enum " + Arrays
+            "Orientation " + orientation + " not supported in enum " + Arrays
                 .toString(EOrientation.values()));
     }
   }

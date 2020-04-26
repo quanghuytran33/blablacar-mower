@@ -43,7 +43,7 @@ public enum EOrientation {
       case "W":
         return WEST;
       default:
-        throw new IllegalArgumentException();
+        throw new IllegalArgumentException("Orientation not supported: " + orientation);
     }
   }
 }

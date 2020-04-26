@@ -1,6 +1,6 @@
 package com.blablacar.mower.processor;
 
-import static com.blablacar.mower.utils.EMowerCommandUtils.convertStringToListCommand;
+import static com.blablacar.mower.enumeration.EMowerCommand.convertStringToListCommand;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.blablacar.mower.domain.Coordinates;
@@ -41,26 +41,28 @@ public class MowerActionsProcessorConcurrentTest {
     assertEquals(EOrientation.EAST, mower2.getOrientation());
   }
 
-//  @Test
-//  public void shouldHaveMoveDiscarded_when2MowersTakeSamePlace()
-//      throws InterruptedException, ExecutionException {
-//    Lawn lawn = new Lawn(new Coordinates(5, 5));
-//    Mower mower1 = new Mower("Mower 1", new Coordinates(1, 2), EOrientation.NORTH, lawn);
-//    Mower mower2 = new Mower("Mower 2", new Coordinates(1, 3), EOrientation.NORTH, lawn);
-//
-//    List<Future<Mower>> futures = executorService.invokeAll(
-//        Arrays.asList(new MowerCommandsProcessor(mower1, convertStringToListCommand("FFF")),
-//            new MowerCommandsProcessor(mower2, convertStringToListCommand("FFF"))));
-//
-//    mower1 = futures.get(0).get();
-//    assertEquals(1, mower1.getCoordinates().getHorizontal());
-//    assertEquals(4, mower1.getCoordinates().getVertical());
-//    assertEquals(EOrientation.NORTH, mower1.getOrientation());
-//
-//    mower2 = futures.get(1).get();
-//    assertEquals(1, mower2.getCoordinates().getHorizontal());
-//    assertEquals(5, mower2.getCoordinates().getVertical());
-//    assertEquals(EOrientation.NORTH, mower2.getOrientation());
-//  }
+
+  @Test
+  public void shouldHaveMoveDiscarded_when2MowersTakeSamePlace()
+      throws InterruptedException, ExecutionException {
+    Lawn lawn = new Lawn(new Coordinates(5, 5));
+    Mower mower1 = new Mower("Mower 1", new Coordinates(1, 2), EOrientation.NORTH, lawn);
+    Mower mower2 = new Mower("Mower 2", new Coordinates(1, 3), EOrientation.NORTH, lawn);
+
+    List<Future<Mower>> futures = executorService.invokeAll(
+        Arrays.asList(new MowerCommandsProcessor(mower1, convertStringToListCommand("FFF")),
+            new MowerCommandsProcessor(mower2, convertStringToListCommand("FFF"))));
+
+    mower1 = futures.get(0).get();
+    assertEquals(1, mower1.getCoordinates().getHorizontal());
+    //Nothing guarantee that it always produces same result
+    //assertEquals(4, mower1.getCoordinates().getVertical());
+    assertEquals(EOrientation.NORTH, mower1.getOrientation());
+
+    mower2 = futures.get(1).get();
+    assertEquals(1, mower2.getCoordinates().getHorizontal());
+    assertEquals(5, mower2.getCoordinates().getVertical());
+    assertEquals(EOrientation.NORTH, mower2.getOrientation());
+  }
 
 }

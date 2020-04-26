@@ -9,7 +9,6 @@ import com.blablacar.mower.domain.Mower;
 import com.blablacar.mower.enumeration.EMowerCommand;
 import com.blablacar.mower.enumeration.EOrientation;
 import com.blablacar.mower.processor.MowerCommandsProcessor;
-import com.blablacar.mower.utils.EMowerCommandUtils;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -41,7 +40,7 @@ public class MowerFileParser {
               new Coordinates(coordinatesAndOrientation[0], coordinatesAndOrientation[1]),
               EOrientation.convertSymbolToOrientation(coordinatesAndOrientation[2]), lawn));
         } else {
-          mowersCommands.add(EMowerCommandUtils.convertStringToListCommand(line));
+          mowersCommands.add(EMowerCommand.convertStringToListCommand(line));
         }
         indexLine++;
       }

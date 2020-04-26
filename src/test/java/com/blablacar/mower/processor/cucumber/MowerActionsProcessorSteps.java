@@ -8,7 +8,6 @@ import com.blablacar.mower.domain.Mower;
 import com.blablacar.mower.enumeration.EMowerCommand;
 import com.blablacar.mower.enumeration.EOrientation;
 import com.blablacar.mower.processor.MowerCommandsProcessor;
-import com.blablacar.mower.utils.EMowerCommandUtils;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -33,7 +32,7 @@ public class MowerActionsProcessorSteps {
 
   @Given("list of commands is: {word}")
   public void listOfCommands(String commands) {
-    mowerCommands = EMowerCommandUtils.convertStringToListCommand(commands);
+    mowerCommands = EMowerCommand.convertStringToListCommand(commands);
   }
 
   @When("process the actions")

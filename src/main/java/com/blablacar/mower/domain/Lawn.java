@@ -12,7 +12,7 @@ public class Lawn {
 
   public Lawn(Coordinates coordinatesLimit) {
     this.coordinatesLimit = coordinatesLimit;
-    //It seems that it's unnecessary to use ConcurrentHashMap
+    //It seems that it's unnecessary to use ConcurrentHashMap because it's called inside synchronized block
     this.occupiedPosition = ConcurrentHashMap.newKeySet();
   }
 
