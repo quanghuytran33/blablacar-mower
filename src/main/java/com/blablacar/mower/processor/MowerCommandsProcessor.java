@@ -3,10 +3,18 @@ package com.blablacar.mower.processor;
 import com.blablacar.mower.domain.Mower;
 import com.blablacar.mower.enumeration.EMowerCommand;
 import java.util.List;
+import java.util.concurrent.Callable;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
-public class MowerCommandsProcessor {
+@Slf4j
+@AllArgsConstructor
+public class MowerCommandsProcessor implements Callable<Mower> {
 
-  public void processMowerCommands(Mower mower, List<EMowerCommand> commands) {
+  private final Mower mower;
+  private final List<EMowerCommand> commands;
+
+  public Mower call() {
     for (EMowerCommand command : commands) {
       switch (command) {
         case TURN_LEFT:
@@ -22,6 +30,12 @@ public class MowerCommandsProcessor {
           throw new IllegalArgumentException();
       }
     }
+    log.info("The final position of Mower {} : {} {} {}",
+        mower.getId(),
+        mower.getCoordinates().getHorizontal(),
+        mower.getCoordinates().getVertical(),
+        mower.getOrientation());
+    return mower;
   }
 
 }

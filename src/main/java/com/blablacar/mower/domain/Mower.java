@@ -2,21 +2,27 @@ package com.blablacar.mower.domain;
 
 import com.blablacar.mower.enumeration.EOrientation;
 import com.blablacar.mower.utils.CoordinatesUtils;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
-@AllArgsConstructor
 @Getter
 @Slf4j
 @ToString
 public class Mower {
 
-  private String id;
+  private final String id;
   private Coordinates coordinates;
   private EOrientation orientation;
-  private Lawn lawn;
+  private final Lawn lawn;
+
+  public Mower(String id, Coordinates coordinates, EOrientation orientation, Lawn lawn) {
+    this.id = id;
+    this.coordinates = coordinates;
+    this.orientation = orientation;
+    this.lawn = lawn;
+    lawn.insertOccupiedPosition(coordinates);
+  }
 
   public void turnLeft() {
     orientation = orientation.getLeftOrientation();
@@ -33,9 +39,13 @@ public class Mower {
     if (isCoordinatesInside(nextCoordinates)) {
       if (lawn.isPositionUpdatable(coordinates, nextCoordinates)) {
         coordinates = nextCoordinates;
+      } else {
+        log.warn("Mower id {} forward discard because position {} was occupied ", id,
+            nextCoordinates);
       }
     } else {
-      log.warn("Mower id {} next move {} touch the lawn limit {}", id, nextCoordinates,
+      log.warn("Mower id {} next position {}, {} exceed lawn limit {}", id, nextCoordinates,
+          orientation,
           lawn.getCoordinatesLimit());
     }
   }
