@@ -6,9 +6,9 @@ import com.blablacar.mower.domain.Coordinates;
 import com.blablacar.mower.domain.Lawn;
 import com.blablacar.mower.domain.Mower;
 import com.blablacar.mower.enumeration.EMowerCommand;
+import com.blablacar.mower.enumeration.EOrientation;
 import com.blablacar.mower.processor.MowerCommandsProcessor;
 import com.blablacar.mower.utils.EMowerCommandUtils;
-import com.blablacar.mower.utils.OrientationUtils;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -28,7 +28,7 @@ public class MowerActionsProcessorSteps {
   @Given("the mower start at {int} {int} {word}")
   public void theMowerStartAt(int mowerHorizontal, int mowerVertical, String orientation) {
     mower = new Mower("", new Coordinates(mowerHorizontal, mowerVertical),
-        OrientationUtils.convertCharToOrientation(orientation), lawn);
+        EOrientation.convertSymbolToOrientation(orientation), lawn);
   }
 
   @Given("list of commands is: {word}")
@@ -45,7 +45,7 @@ public class MowerActionsProcessorSteps {
   public void theFinalPositionIs(int mowerHorizontal, int mowerVertical, String orientation) {
     assertEquals(mowerHorizontal, mower.getCoordinates().getHorizontal());
     assertEquals(mowerVertical, mower.getCoordinates().getVertical());
-    assertEquals(OrientationUtils.convertCharToOrientation(orientation),
+    assertEquals(EOrientation.convertSymbolToOrientation(orientation),
         mower.getOrientation());
   }
 

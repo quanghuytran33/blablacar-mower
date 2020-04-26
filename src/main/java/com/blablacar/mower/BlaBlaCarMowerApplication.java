@@ -32,7 +32,7 @@ public class BlaBlaCarMowerApplication {
       System.out.println(
           mower.getCoordinates().getHorizontal() + " "
               + mower.getCoordinates().getVertical() + " "
-              + mower.getOrientation());
+              + mower.getOrientation().getSymbol());
     }
   }
 

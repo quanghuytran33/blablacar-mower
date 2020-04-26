@@ -16,6 +16,7 @@ public class MowerCommandsProcessor implements Callable<Mower> {
   private final Mower mower;
   private final List<EMowerCommand> commands;
 
+  @Override
   public Mower call() {
     for (EMowerCommand command : commands) {
       switch (command) {
@@ -32,7 +33,7 @@ public class MowerCommandsProcessor implements Callable<Mower> {
           throw new IllegalArgumentException();
       }
     }
-    log.info("The final position of Mower {} : {} {} {}",
+    log.debug("The final position of Mower {} : {} {} {}",
         mower.getId(),
         mower.getCoordinates().getHorizontal(),
         mower.getCoordinates().getVertical(),

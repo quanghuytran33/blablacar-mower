@@ -7,9 +7,9 @@ import com.blablacar.mower.domain.Coordinates;
 import com.blablacar.mower.domain.Lawn;
 import com.blablacar.mower.domain.Mower;
 import com.blablacar.mower.enumeration.EMowerCommand;
+import com.blablacar.mower.enumeration.EOrientation;
 import com.blablacar.mower.processor.MowerCommandsProcessor;
 import com.blablacar.mower.utils.EMowerCommandUtils;
-import com.blablacar.mower.utils.OrientationUtils;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -39,7 +39,7 @@ public class MowerFileParser {
           String[] coordinatesAndOrientation = line.split(" ");
           mowers.add(new Mower(String.valueOf(indexLine / 2),
               new Coordinates(coordinatesAndOrientation[0], coordinatesAndOrientation[1]),
-              OrientationUtils.convertCharToOrientation(coordinatesAndOrientation[2]), lawn));
+              EOrientation.convertSymbolToOrientation(coordinatesAndOrientation[2]), lawn));
         } else {
           mowersCommands.add(EMowerCommandUtils.convertStringToListCommand(line));
         }
