@@ -30,22 +30,24 @@ public class Mower {
     Coordinates nextCoordinates = CoordinatesUtils
         .computeNextCoordinateWithOrientation(coordinates, orientation);
 
-    if (checkIfCoordinatesIsInside(nextCoordinates)) {
-      coordinates = nextCoordinates;
+    if (isCoordinatesInside(nextCoordinates)) {
+      if (lawn.isPositionUpdatable(coordinates, nextCoordinates)) {
+        coordinates = nextCoordinates;
+      }
     } else {
       log.warn("Mower id {} next move {} touch the lawn limit {}", id, nextCoordinates,
           lawn.getCoordinatesLimit());
     }
   }
 
-  public boolean checkIfCoordinatesIsOutside(Coordinates coordinates) {
+  public boolean isCoordinatesOutside(Coordinates coordinates) {
     return coordinates.getHorizontal() > lawn.getCoordinatesLimit().getHorizontal()
         || coordinates.getVertical() > lawn.getCoordinatesLimit().getVertical()
         || coordinates.getHorizontal() < 0 || coordinates.getVertical() < 0;
   }
 
-  public boolean checkIfCoordinatesIsInside(Coordinates coordinates) {
-    return !checkIfCoordinatesIsOutside(coordinates);
+  public boolean isCoordinatesInside(Coordinates coordinates) {
+    return !isCoordinatesOutside(coordinates);
   }
 
 }
