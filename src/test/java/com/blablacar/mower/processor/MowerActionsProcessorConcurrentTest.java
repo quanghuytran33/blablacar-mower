@@ -50,13 +50,17 @@ public class MowerActionsProcessorConcurrentTest {
     Mower mower2 = new Mower("Mower 2", new Coordinates(1, 3), EOrientation.NORTH, lawn);
 
     List<Future<Mower>> futures = executorService.invokeAll(
-        Arrays.asList(new MowerCommandsProcessor(mower1, convertStringToListCommand("FFF")),
+        Arrays.asList(
+            /*Nothing guarantee that it always produces same result
+            because thread execution's speed is not stable in the meantime.
+            So, I force several Forward commands
+             */
+            new MowerCommandsProcessor(mower1, convertStringToListCommand("FRRFLLFFFFFFFFF")),
             new MowerCommandsProcessor(mower2, convertStringToListCommand("FFF"))));
 
     mower1 = futures.get(0).get();
     assertEquals(1, mower1.getCoordinates().getHorizontal());
-    //Nothing guarantee that it always produces same result
-    //assertEquals(4, mower1.getCoordinates().getVertical());
+    assertEquals(4, mower1.getCoordinates().getVertical());
     assertEquals(EOrientation.NORTH, mower1.getOrientation());
 
     mower2 = futures.get(1).get();
